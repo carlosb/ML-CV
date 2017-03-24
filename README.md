@@ -5,4 +5,9 @@ Computer Vision and Machine Learning algorithms for my CV-ML course.
 I will try to include an explanation for the different problems and solutions
 aswell as the explanation for the algorithms.
 
-
+# Topics
+They include:
+- Fourier transform
+- Fourier descriptors
+- Image Moments
+- Geometric Transformations
