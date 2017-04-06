@@ -17,7 +17,7 @@ Notes:
 	- It is being trained using the whole of the database
 	- We are training the method with the Conjugate Gradient Method
 	- The cost function is called Cross Entropy
-	- >>>> It will plot the missclassified images <<<< PLEASE 
+	- >>>> It will plot the missclassified images <<<<<
 	- It will plot a graph of the cost function as time passes
 """
 
