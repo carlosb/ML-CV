@@ -63,39 +63,63 @@ def SigmoidGradient(x):
 
 
 class NeuralNetwork:
-	def __init__(self, g, dg, L, dL):
+	def __init__(self, g, dg, L, dL, reg=1):
 		"""
-		l - number of layers
-		g - activation
-		dg - derivative of activation
-		L - loss
-		dL - gradient of loss
+		@var l - number of layers
+		@var g - activation
+		@var dg - derivative of activation
+		@var L - loss
+		@var dL - gradient of loss
 		"""
+
+		## number of layers
 		self.layers = 0
+
+		## activation function
 		self.activation = g
+
+		## activation gradient
 		self.activation_gradient = dg
+
+		## loss model
 		self.loss = L
+
+		## gradient of loss
 		self.loss_gradient = dL
+
+		## number of nodes per each layer
 		self.layer_sizes = []
+
+		## current epoch
 		self.epoch = 0
-		self.reg_param = 1
 
-		# global state of the model
+		## reg param
+		self.reg_param = reg
+
+		## training data
 		self.X = None
-		self.y = None
-		self.W = None
-		self.a = [] # list of vectors for linear combination at each layer
-		self.h = [] # activation vectors of each layer
-		self.weight_gradient = [] # list of gradients of the weigths at each layer
 
+		## targets
+		self.y = None
+
+		## weight tensor
+		self.W = None
+
+		## list of vectors for linear combination at each layer
+		self.a = []
+
+		## activation vectors of each layer
+		self.h = []
+
+		## list of gradients of the weigths at each layer
+		self.weight_gradient = []
 
 	def addLayer(self, size):
 		"""
-		size - is the size of the layer i.e.
+		@param size is the size of the layer i.e.
 		if we want a layer of 3 nodes then we
 		call model.addLayer(3)
 		"""
-
 		self.layer_sizes.append(size)
 		self.layers += 1
 
@@ -285,6 +309,7 @@ data = pd.read_csv('mnist.txt', sep=" ", header=None)
 
 # Extract input
 X = data[range(len(data.columns)-1)].as_matrix()
+print 'Training with ', len(X), 'samples\n'
 
 # Extract targets
 y = data[[len(data.columns)-1]].as_matrix()
@@ -295,7 +320,8 @@ model = NeuralNetwork(g=Sigmoid, dg=SigmoidGradient, L=CrossEntropy, dL=CrossEnt
 
 # Add layers
 model.addLayer(784) # each vector consists of 784 entries
-model.addLayer(25) # we add 25 nodes in between
+model.addLayer(20) # each vector consists of 784 entries
+model.addLayer(20) # each vector consists of 784 entries
 model.addLayer(10) # we add one node for each class (0-9)
 
 # Train the model
