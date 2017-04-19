@@ -15,7 +15,7 @@ To do this, you must do the following:
 
 - The horizontal and vertical translations should be random numbers in the range [-10,100] [- 10,100]
 
-- The Changes in scale should be some of the following: s ∈ {0.5,1,1,5,3} s ∈ {0,5,1,1,5,3}.
+- The Changes in scale should be some of the following: s ∈ {0.5,1,1,5,3}.
 
 # Images
 
