@@ -19,6 +19,6 @@ To do this, you must do the following:
 
 # Images
 
-One of the images to conduct the tests on are: 
+One of the images to conduct the tests looks like this: 
 
 ![First Image](Bailarina.png)
