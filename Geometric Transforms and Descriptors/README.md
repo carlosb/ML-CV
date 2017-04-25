@@ -22,3 +22,25 @@ To do this, you must do the following:
 One of the images to conduct the tests looks like this: 
 
 ![First Image](Bailarina.png)
+
+# Methodology
+
+Unfortunately, the report I've written (which has a more deglossed description of the results) is in Spanish. However we can present the output of the program. What the program basically does is:
+
+- Takes an image
+- Thresholds it
+- Outputs the thresholded image
+- Applies transformation to image
+- Obtains the contour of the image and the transformed one
+- Calculates Hu moments of the original image and the transformed one
+- Calculates Fourier Descriptors of the original image and the transformed one
+- Outputs transformed image
+- Outputs the reconstructed image out of its Fourier coefficients
+
+# Results and Output
+
+In short, we find that the Hu moments are invariant to all the transforms listed in the Problem Statement. On the other hand, the "Fourier Descriptors" are not invariant. This is because our "Fourier Descriptor" implementation takes into account both the magnitude and phase angle of the Fourier coefficient. Also, we do not divide by a chosen Fourier coefficient in order to remove the common factor caused by the scaling.
+
+A screenshot of the program in action looks like this. To the left, we observe the contour of the transformed image. To the right, the Fourier representation (n=15) of the image.
+
+![alt text](Screenshot.png)
