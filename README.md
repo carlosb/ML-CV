@@ -16,3 +16,6 @@ They include:
 - Fourier descriptors
 - Image Moments
 - Geometric Transformations
+- Neural Networks
+- Kernel Methods
+- Support Vector Machines
