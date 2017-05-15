@@ -113,7 +113,7 @@ int main(int argc, char **argv) {
     Contour contour = getContours(thresh)[0];
     Contour transformedContour;
 
-    geomTransform(contour, transformedContour, 1.5, 20, 50, PI/3);
+    geomTransform(contour, transformedContour, 1., 20, 50, PI/3);
 
     // Visualize contour
     Mat contourImg;

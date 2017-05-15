@@ -65,11 +65,11 @@ def SigmoidGradient(x):
 class NeuralNetwork:
 	def __init__(self, g, dg, L, dL, reg=1):
 		"""
-		@var l - number of layers
-		@var g - activation
-		@var dg - derivative of activation
-		@var L - loss
-		@var dL - gradient of loss
+		@param l - number of layers
+		@param g - activation
+		@param dg - derivative of activation
+		@param L - loss
+		@param dL - gradient of loss
 		"""
 
 		## number of layers
