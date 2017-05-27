@@ -10,7 +10,7 @@ MNIST dataset.
 To run make sure you have mnist.txt in the same folder.
 After which you only need to run it with 
 
-~> $ python NeuralNetwork.py
+~> $ python nn.py
 
 
 Notes:
@@ -65,11 +65,18 @@ def SigmoidGradient(x):
 class NeuralNetwork:
 	def __init__(self, g, dg, L, dL, reg=1):
 		"""
-		@param l - number of layers
-		@param g - activation
-		@param dg - derivative of activation
-		@param L - loss
-		@param dL - gradient of loss
+		Parameters
+		----------
+		l : int
+		    Number of layers.
+		g : function
+		    Activation function.
+		dg : function
+		    Derivative of activation
+		L : function
+		    Loss function.
+		dL : function
+		    Gradient of loss function.
 		"""
 
 		## number of layers
@@ -116,18 +123,39 @@ class NeuralNetwork:
 
 	def addLayer(self, size):
 		"""
-		@param size is the size of the layer i.e.
-		if we want a layer of 3 nodes then we
-		call model.addLayer(3)
+		Parameters
+		----------
+		size : int
+		    Number of neurons in layer.
+		
+		Example
+		-------
+		If we want a layer of 3 nodes then we
+		call 
+		````
+		model.addLayer(3)
+		````
 		"""
 		self.layer_sizes.append(size)
 		self.layers += 1
 
-	def train(self,X,y, max_it=200, epsilon_init=0.5):
+	def train(self, X, y, max_it=200, epsilon_init=0.5):
 		"""
-		Trains the network using an optimizer.
-		Please select the method to be used in the call to optimize.minimize(method=YourChoice)
-		Also feel free to adjust the weight initialization parameter.
+		Trains the method by minimizing the loss function and
+		initializing the weights. It takes the whole dataset
+		and the respective targets. It utilizes the Conjugate
+		Gradient method to perform the minimization.
+		
+		Parameters
+		----------
+		X : array_like
+		    Feature matrix.
+		y : array_like
+		    Targets.
+		max_it : int
+		    Max iterations.
+		epsilon_init : float
+		    Weight initialization parameter.
 		"""
 
 		self.X = X
@@ -142,19 +170,34 @@ class NeuralNetwork:
 
 		self.setParams(_res.x)
 
-	def predict(self,x):
+	def predict(self, x):
 		"""
 		Predict a new input x by forward
-		propagating the network
+		propagating the network.
+		
+		Parameters
+		----------
+		x : array_like
+		    New input.
+		
+		Returns
+		-------
+		prediction : array_like or float
+		    Total cost of network (forward-propagation)
 		"""
 		prediction = self.forward(x,self.y)
 		return prediction
 
 
-	def init_weights(self,epsilon):
+	def init_weights(self, epsilon):
 		"""
-		initializes the weights randomly using
-		the shapes of adjacent layers
+		Initializes the weights randomly aiding itself
+		from the shapes of adjacent layers.
+		
+		Parameters
+		----------
+		epsilon : float
+		    Low and high bound of interval.
 		"""
 		W = np.array([
 
@@ -164,11 +207,16 @@ class NeuralNetwork:
 			])
 		return W
 
-	def forward(self,X,y):
+	def forward(self, X, y):
 		"""
-		Forward propagation of the network
-		X - input matrix
-		y - output vector
+		Forward propagation of the network.
+		
+		Parameters
+		----------
+		X : array_like
+		    Input sample.
+		y : array_like
+		    Target.
 		"""
 		h_old = X
 		self.h = []
@@ -196,8 +244,11 @@ class NeuralNetwork:
 
 		This method saves the gradients of the weights in self.weight_gradient
 		so you can use them for later in any method such as SGD or Batch Training
-
-		y_hat - The prediction for an input X. We only need this value to get
+		
+		Parameters
+		----------
+		y_hat : array_like
+		    The prediction for an input X. We only need this value to get
 		the error at the last layer.
 		"""
 		g = self.loss_gradient(y_hat,y)
@@ -213,20 +264,25 @@ class NeuralNetwork:
 
 		return self.weight_gradient
 
-	def objective(self,params,X,y):
+	def objective(self, params, X, y):
 		"""
 		Objective function that acts as a way of obtaining
 		the cost of the network on input X and gets the gradients.
-
-		params - basically all the weights concatenated into a vector
-		X - input
-		y - targets
+		
+		Parameters
+		----------
+		params : array of array_like elements
+		    All the weights concatenated into a vector.
+		X : array_like
+		    Input sample.
+		y : array_like
+		    Targets.
 		"""
 		self.setParams(params)
-		y_hat = self.forward(X,y)
-		cost = model.loss(y_hat,y) + (self.reg_param/(2*len(self.y)))*np.sum(self.getParams()**2)
+		y_hat = self.forward(X, y)
+		cost = model.loss(y_hat, y) + (self.reg_param / (2 * len(self.y))) * np.sum(self.getParams()**2)
 		model.back_prop(y_hat)
-		grad = self.getWeightGradients(X,y)
+		grad = self.getWeightGradients(X, y)
 		return cost, grad
 
 	def callbackF(self, params):
@@ -235,7 +291,6 @@ class NeuralNetwork:
 		
 		We use this to shuffle the training set at each epoch and do some
 		other interactivity stuff.
-
 		"""
 		self.setParams(params)
 
@@ -320,9 +375,9 @@ model = NeuralNetwork(g=Sigmoid, dg=SigmoidGradient, L=CrossEntropy, dL=CrossEnt
 
 # Add layers
 model.addLayer(784) # each vector consists of 784 entries
-model.addLayer(20) # each vector consists of 784 entries
-model.addLayer(20) # each vector consists of 784 entries
-model.addLayer(10) # we add one node for each class (0-9)
+model.addLayer(20) # add layer of 20 neurons
+model.addLayer(20) # add layer of 20 neurons
+model.addLayer(10) # add layer of 10 neurons (for 10 digit classes)
 
 # Train the model
 model.train(X,y,max_it=200)
@@ -350,14 +405,14 @@ for i in range(n):
 		acc += 1.
 	else:
 		if max_images > images_plotted:
-			img = X[index].reshape((28,28))
+			img = X[index].reshape((28, 28))
 			plt.figure()
-			title = target, ' missclassified as ',pred
+			title = target, ' missclassified as ', pred
 			plt.title(title)
 			plt.imshow(img, interpolation='nearest')
 			images_plotted += 1
 acc /= n
-print 'Accuracy', acc*100, '%'
+print 'Accuracy', acc * 100, '%'
 
 
 # Plot the graph
