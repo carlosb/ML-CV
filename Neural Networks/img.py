@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import cv2
 
 from nn import NeuralNetwork
-from nn import to_categorical
 
 from sklearn.preprocessing import scale
 

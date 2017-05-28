@@ -64,6 +64,7 @@ def to_categorical(y, num_classes=None):
     categorical[np.arange(n), y] = 1
     return categorical
 
+
 # Read data
 data = pd.read_csv('mnist.txt', sep=" ", header=None)
 
