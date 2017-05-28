@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import cv2
 
 from nn import NeuralNetwork
-from nn import to_categorical
 
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import scale
@@ -46,6 +45,24 @@ def SigmoidGradient(x):
     """
     return np.multiply(Sigmoid(x), (1. - Sigmoid(x)))
 
+
+def to_categorical(y, num_classes=None):
+    """Converts a class vector (integers) to binary class matrix.
+    E.g. for use with categorical_crossentropy.
+    # Arguments
+        y: class vector to be converted into a matrix
+            (integers from 0 to num_classes).
+        num_classes: total number of classes.
+    # Returns
+        A binary matrix representation of the input.
+    """
+    y = np.array(y, dtype='int').ravel()
+    if not num_classes:
+        num_classes = np.max(y) + 1
+    n = y.shape[0]
+    categorical = np.zeros((n, num_classes))
+    categorical[np.arange(n), y] = 1
+    return categorical
 
 # Read data
 data = pd.read_csv('mnist.txt', sep=" ", header=None)
