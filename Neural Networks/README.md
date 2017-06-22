@@ -23,7 +23,7 @@ We have standarized the database using the [`scale()`](http://scikit-learn.org/s
 # Results and Output
 ## `img.py`
 The process of the file `img.py` will consist of the program loading the whole of database in memory (I hope you have enough RAM) and
-displaying the cost of the network at each epoch. It will plot and display a graph of the cost at the end along with images of the missclasifications. The plot of the function should be convex since we trained the network with the whole database as a batch. Finnally, it should also output `n` predictions with the last line being the accuracy:
+displaying the cost of the network at each epoch. It will plot and display a graph of the cost at the end along with images of the missclasifications. The plot of the function should be convex since we trained the network with the whole database as a batch. Finally, it should also output `n` predictions with the last line being the accuracy:
 
 ```python
 Predict X[ index ]: predicted_class
